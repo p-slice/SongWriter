@@ -11,7 +11,6 @@ Some of the major highlights include:
 	- Tracks have no defined limit, so as many or as few as you want can be added.
 	- Users can add pre-defined track types (Chord, melody, bass, drums, for example), or create their own - the program is designed to accept any type of track. *Note: not all pre-defined tracks are currently written*
 	- Creating a new track gives it a default set of information, which can then be configured.
-	- 
 - Components are much more configurable:
 	- Similar to tracks, new components can simply be loaded into the song.
 	- The song auto-generates with at least one intro and outro, and any number of components in between (up to a set maximum).
