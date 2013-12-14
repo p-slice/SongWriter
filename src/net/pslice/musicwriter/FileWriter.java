@@ -53,7 +53,9 @@ class FileWriter {
         };
     }
 
-
+    /*
+    ** Method to write the MIDI file.
+     */
     public static void write(Set<Track> tracks, String path) throws IOException {
         FileOutputStream output = new FileOutputStream(path);
         int initialSize = trackFooter.length + keyData.length + tempoData.length + timeSignatureData.length;

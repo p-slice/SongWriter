@@ -41,6 +41,13 @@ public abstract class Component {
     }
 
     /*
+    ** Getter for component bars.
+     */
+    public int getBars() {
+        return bars;
+    }
+
+    /*
     ** Getter for component data.
      */
     public List<int[]> getData() {

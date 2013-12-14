@@ -13,7 +13,7 @@ public abstract class Scale {
     /*
     ** Special types and variables.
      */
-    Probability<Integer> note;
+    Probability<Integer> notes;
 
     /*
     ** Getter for scale name.
@@ -29,7 +29,10 @@ public abstract class Scale {
         return baseNote;
     }
 
+    /*
+    ** Getter for a random/probable note on the scale.
+     */
     public int getNextNote() {
-        return note.getResult();
+        return notes.getResult();
     }
 }
