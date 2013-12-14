@@ -1,5 +1,6 @@
 package net.pslice.musicwriter;
 
+import net.pslice.musicwriter.tracks.BassTrack;
 import net.pslice.musicwriter.tracks.ChordTrack;
 import net.pslice.musicwriter.tracks.MelodyTrack;
 import net.pslice.musicwriter.tracks.Track;
@@ -26,10 +27,14 @@ public class MusicWriter {
         chordTrack.setOctave(4);
         song.addTrack(chordTrack);
 
-        Track melodyTrack = new MelodyTrack(0);
+        Track melodyTrack = new MelodyTrack(17);
         melodyTrack.setName("Melody track");
         melodyTrack.setVelocity(90);
         song.addTrack(melodyTrack);
+
+        Track bassTrack = new BassTrack(32);
+        bassTrack.setName("Bass track");
+        song.addTrack(bassTrack);
 
         song.generate();
     }

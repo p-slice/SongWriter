@@ -36,7 +36,7 @@ class FileWriter {
         };
     }
     public static void setTempoData(int tempo) {
-        int finalTempo = 1000000 / (tempo * 60);
+        int finalTempo = 1000000 / (tempo / 60);
 
         tempoData = new int[]{
                 0x00, 0xFF, 0x51, 0x03,
