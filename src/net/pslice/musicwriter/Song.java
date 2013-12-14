@@ -1,8 +1,6 @@
 package net.pslice.musicwriter;
 
-import net.pslice.musicwriter.components.Component;
-import net.pslice.musicwriter.components.Intro;
-import net.pslice.musicwriter.components.Outro;
+import net.pslice.musicwriter.components.*;
 import net.pslice.musicwriter.scales.MajorScale;
 import net.pslice.musicwriter.scales.Scale;
 import net.pslice.musicwriter.tracks.Track;
@@ -43,6 +41,8 @@ public class Song {
         trackSet = new LinkedHashSet<>();
 
         componentProbability = new Probability<>();
+        componentProbability.add(new Verse(), 7);
+        componentProbability.add(new Chorus(), 6);
         componentProbability.add(new Outro(), 2);
 
         this.name = name;
@@ -152,6 +152,12 @@ public class Song {
         componentList.add(intro);
         intro.generateChords();
 
+        if (verbosity) {
+            System.out.println("Added new component: Intro");
+            System.out.println("Bars: " + intro.getBars());
+            System.out.println("==================================");
+        }
+
         boolean addedOutro = false;
         while (!addedOutro) {
             Component component = componentProbability.getResult();
@@ -159,6 +165,12 @@ public class Song {
                 componentList.add(component);
                 component.generateChords();
                 component.CURRENT++;
+
+                if (verbosity) {
+                    System.out.println("Added new component: " + component.getType());
+                    System.out.println("Bars: " + component.getBars());
+                    System.out.println("==================================");
+                }
 
                 if (component.getType().equals("Outro"))
                     addedOutro = true;

@@ -20,16 +20,16 @@ public class Probability<T> {
     /*
     ** Method to add an item to the probability.
      */
-    public void add(T type, int probability) {
-        probabilitySet.put(type, probability);
+    public void add(T item, int probability) {
+        probabilitySet.put(item, probability);
     }
 
     /*
     ** Method to remove an item from the probability.
      */
-    public void remove(T type) {
-        if (probabilitySet.containsKey(type))
-            probabilitySet.remove(type);
+    public void remove(T item) {
+        if (probabilitySet.containsKey(item))
+            probabilitySet.remove(item);
     }
 
     /*
