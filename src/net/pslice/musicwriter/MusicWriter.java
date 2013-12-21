@@ -1,9 +1,7 @@
 package net.pslice.musicwriter;
 
-import net.pslice.musicwriter.tracks.BassTrack;
-import net.pslice.musicwriter.tracks.ChordTrack;
-import net.pslice.musicwriter.tracks.MelodyTrack;
-import net.pslice.musicwriter.tracks.Track;
+import net.pslice.musicwriter.components.Solo;
+import net.pslice.musicwriter.tracks.*;
 
 public class MusicWriter {
 
@@ -22,19 +20,25 @@ public class MusicWriter {
          */
         Song song = new Song("Song 1");
 
-        Track chordTrack = new ChordTrack(0);
+        ChordTrack chordTrack = new ChordTrack(0);
         chordTrack.setName("Chord track");
         chordTrack.setOctave(4);
         song.addTrack(chordTrack);
 
-        Track melodyTrack = new MelodyTrack(17);
+        MelodyTrack melodyTrack = new MelodyTrack(17);
         melodyTrack.setName("Melody track");
         melodyTrack.setVelocity(90);
         song.addTrack(melodyTrack);
 
-        Track bassTrack = new BassTrack(32);
+        song.addComponent(new Solo(), 4);
+
+        BassTrack bassTrack = new BassTrack(32);
         bassTrack.setName("Bass track");
         song.addTrack(bassTrack);
+
+        DrumTrack drumTrack = new DrumTrack();
+        drumTrack.setName("Drum track");
+        drumTrack.setCymbal(DrumTrack.Cymbal.HiHat);
 
         song.generate();
     }

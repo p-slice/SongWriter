@@ -8,15 +8,7 @@ import java.util.ArrayList;
 public class ChordTrack extends Track {
 
     public ChordTrack(int instrument) {
-        trackData = new ArrayList<>();
-
-        this.instrument = instrument;
-        chan = Song.getCurrentTracks();
-        name = "Track " + chan;
-        velocity = 120;
-        octave = 5;
-
-        trackData.add(new int[]{0, 0xC0 + chan, instrument});
+        super(instrument, 120, 5);
     }
 
     public void generate(Component component) {

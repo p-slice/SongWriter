@@ -2,12 +2,12 @@ package net.pslice.musicwriter;
 
 import java.util.*;
 
-public class Probability<T> {
+public class Probability<P> {
 
     /*
     ** Storage for probability data, plus a random.
      */
-    private final HashMap<T, Integer> probabilitySet;
+    private final HashMap<P, Integer> probabilitySet;
     private final Random random = new Random();
 
     /*
@@ -20,14 +20,14 @@ public class Probability<T> {
     /*
     ** Method to add an item to the probability.
      */
-    public void add(T item, int probability) {
+    public void add(P item, int probability) {
         probabilitySet.put(item, probability);
     }
 
     /*
     ** Method to remove an item from the probability.
      */
-    public void remove(T item) {
+    public void remove(P item) {
         if (probabilitySet.containsKey(item))
             probabilitySet.remove(item);
     }
@@ -35,9 +35,9 @@ public class Probability<T> {
     /*
     ** Method to get a random probability result.
      */
-    public T getResult() {
-        List<T> typeList = new ArrayList<>();
-        for (T type: probabilitySet.keySet()) {
+    public P getResult() {
+        List<P> typeList = new ArrayList<>();
+        for (P type: probabilitySet.keySet()) {
             int added = 0;
             while (added < probabilitySet.get(type)) {
                 typeList.add(type);

@@ -1,8 +1,10 @@
 package net.pslice.musicwriter.tracks;
 
+import net.pslice.musicwriter.Song;
 import net.pslice.musicwriter.Writer;
 import net.pslice.musicwriter.components.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Track {
@@ -20,6 +22,22 @@ public abstract class Track {
     ** Sets and Lists.
      */
     List<int[]> trackData;
+
+    /*
+    ** Initializer:
+     */
+    public Track(int instrument, int velocity, int octave) {
+        trackData = new ArrayList<>();
+
+        this.instrument = instrument;
+        chan = Song.getCurrentTracks();
+        name = "Track " + chan;
+
+        this.velocity = velocity;
+        this.octave = octave;
+
+        trackData.add(new int[]{0, 0xC0 + chan, instrument});
+    }
 
     /*
     ** Abstract generation method used in extended track classes.

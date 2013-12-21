@@ -11,15 +11,7 @@ import java.util.ArrayList;
 public class BassTrack extends Track {
 
     public BassTrack(int instrument) {
-        trackData = new ArrayList<>();
-
-        this.instrument = instrument;
-        chan = Song.getCurrentTracks();
-        name = "Track " + chan;
-        velocity = 100;
-        octave = 3;
-
-        trackData.add(new int[]{0, 0xC0 + chan, instrument});
+        super(instrument, 100, 3);
     }
 
     public void generate(Component component) {
