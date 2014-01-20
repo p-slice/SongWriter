@@ -36,6 +36,7 @@ public class SideBar extends JPanel {
         key.add(new JLabel(" Key: "), BorderLayout.WEST);
 
         JComboBox<String> keyOptions = new JComboBox<>(keys);
+        keyOptions.setBackground(Color.white);
 
         key.add(keyOptions, BorderLayout.CENTER);
         key.setMaximumSize(new Dimension(Integer.MAX_VALUE, key.getMinimumSize().height));

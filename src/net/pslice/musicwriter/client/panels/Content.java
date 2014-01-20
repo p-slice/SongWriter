@@ -1,6 +1,7 @@
 package net.pslice.musicwriter.client.panels;
 
-import net.pslice.musicwriter.program.Instruments;
+import net.pslice.musicwriter.client.Client;
+import net.pslice.musicwriter.program.Instrument;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,10 +34,11 @@ public class Content extends JPanel implements ActionListener {
     public Content()
     {
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        setBorder(BorderFactory.createLineBorder(Color.blue));
         setBackground(Color.white);
 
         JPanel upperPanel = new JPanel(new BorderLayout());
+        upperPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
 
         upperPanel.add(trackName, BorderLayout.WEST);
 
@@ -82,7 +84,7 @@ public class Content extends JPanel implements ActionListener {
                 trackPanelTop.add(nameField);
 
                 trackPanelTop.add(new JLabel(" Instrument: "));
-                JComboBox<Instruments> instrumentOptions = new JComboBox<>(Instruments.values());
+                JComboBox<Instrument> instrumentOptions = new JComboBox<>(Instrument.values());
                 instrumentOptions.setMaximumSize(new Dimension(150, instrumentOptions.getMinimumSize().height));
 
                 trackPanelTop.add(instrumentOptions);
@@ -105,6 +107,7 @@ public class Content extends JPanel implements ActionListener {
 
                 if (tracks.size() == 16)
                     addButton.setEnabled(false);
+                Client.getClient().getFooter().setRunEnabled(true);
             }
         }
         if (event.getActionCommand().startsWith("Remove"))
@@ -115,6 +118,8 @@ public class Content extends JPanel implements ActionListener {
             tracks.remove(i);
             trackName.setText(" Current Tracks: " + tracks.size());
             addButton.setEnabled(true);
+            if (tracks.size() == 0)
+                Client.getClient().getFooter().setRunEnabled(false);
         }
     }
 }

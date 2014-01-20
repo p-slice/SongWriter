@@ -5,6 +5,8 @@ import net.pslice.musicwriter.client.panels.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Client {
 
@@ -14,9 +16,22 @@ public class Client {
      * =============================================
      */
 
+    private static Client client;
+
+    public static Client getClient()
+    {
+        return client;
+    }
+
+    /*
+     * =============================================
+     * ...
+     * =============================================
+     */
+
     public static void main(String... args)
     {
-        Client client = new Client();
+        client = new Client();
     }
 
     /*
@@ -26,6 +41,11 @@ public class Client {
      */
 
     private static final Dimension main = new Dimension(600, 400);
+
+    private final Header header = new Header();
+    private final SideBar sideBar = new SideBar();
+    private final Content content = new Content();
+    private final Footer footer = new Footer();
 
     /*
      * =============================================
@@ -51,17 +71,6 @@ public class Client {
 
         frame.setJMenuBar(menuBar);
 
-        final JPanel
-                header,
-                sideBar,
-                content,
-                footer;
-
-        header = new Header();
-        sideBar = new SideBar();
-        content = new Content();
-        footer = new Footer();
-
         frame.add(header, BorderLayout.NORTH);
         frame.add(sideBar, BorderLayout.WEST);
         frame.add(content, BorderLayout.CENTER);
@@ -72,5 +81,31 @@ public class Client {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    /*
+     * =============================================
+     * ...
+     * =============================================
+     */
+
+    public Header getHeader()
+    {
+        return header;
+    }
+
+    public SideBar getSideBar()
+    {
+        return sideBar;
+    }
+
+    public Content getContent()
+    {
+        return content;
+    }
+
+    public Footer getFooter()
+    {
+        return footer;
     }
 }

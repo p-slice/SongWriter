@@ -3,12 +3,11 @@ package net.pslice.musicwriter.program;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum  Instruments {
+public enum Instrument {
 
     Acoustic_Piano("Acoustic Piano", 0),
     Bright_Piano("Acoustic Bright Piano", 1),
-    Electric_Piano("Electric Piano", 2)
-    ;
+    Electric_Piano("Electric Piano", 2);
 
     /*
      * =============================================
@@ -25,7 +24,7 @@ public enum  Instruments {
      * =============================================
      */
 
-    Instruments(String name, int ID)
+    Instrument(String name, int ID)
     {
         this.ID = ID;
         this.name = name;
@@ -56,8 +55,8 @@ public enum  Instruments {
     public static Set<String> getInstrumentNames()
     {
         Set<String> names = new HashSet<>();
-        for (Instruments instruments : Instruments.values())
-            names.add(instruments.getName());
+        for (Instrument instrument : Instrument.values())
+            names.add(instrument.getName());
         return names;
     }
 }

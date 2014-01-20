@@ -11,6 +11,14 @@ public class Header extends JPanel {
      * =============================================
      */
 
+    private final JTextField name = new JTextField("Default");
+
+    /*
+     * =============================================
+     * ...
+     * =============================================
+     */
+
     public Header()
     {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -18,9 +26,19 @@ public class Header extends JPanel {
 
         add(new JLabel(" Song Name: "));
 
-        JTextField name = new JTextField("Default");
         name.setMaximumSize(new Dimension(150, name.getMinimumSize().height));
 
         add(name);
+    }
+
+    /*
+     * =============================================
+     * ...
+     * =============================================
+     */
+
+    public String getSongName()
+    {
+        return name.getText();
     }
 }
