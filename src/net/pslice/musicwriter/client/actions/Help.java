@@ -7,10 +7,32 @@ import java.net.URI;
 
 public class Help extends AbstractAction {
 
+    /*
+     * =============================================
+     * Initializer:
+     * Parameters:
+     *      [None]
+     * =============================================
+     */
+
     public Help()
     {
         super("Help");
     }
+
+
+
+
+
+    /*
+     * =============================================
+     * Implemented action performed method:
+     * Parameters:
+     *      [ActionEvent] event: The event that occurred
+     * Returns:
+     *      [None]
+     * =============================================
+     */
 
     public void actionPerformed(ActionEvent event)
     {

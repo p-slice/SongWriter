@@ -1,9 +1,16 @@
-package net.pslice.musicwriter.program;
+package net.pslice.musicwriter.program.music;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public enum Instrument {
+
+    /*
+     * ================================================
+     * All possible instruments:
+     * (Currently incomplete, more to be added soon)
+     * ================================================
+     */
 
     Acoustic_Grand_Piano("Acoustic Grand Piano", 0),
     Bright_Piano("Acoustic Bright Piano", 1),
@@ -33,18 +40,32 @@ public enum Instrument {
     Tango_Accordion("Tango Accordion", 23)
     ;
 
+
+
+
+
     /*
      * =============================================
-     * ...
+     * Variables, Objects, Sets, Lists and Maps:
      * =============================================
      */
 
+    // The ID used by MIDI to identify the instrument
     private final int ID;
+
+    // The name of the instrument
     private final String name;
+
+
+
+
 
     /*
      * =============================================
-     * ...
+     * Initializer:
+     * Parameters:
+     *      [String] name: The name of the instrument
+     *      [Integer] ID: The ID used by MIDI to identify the instrument
      * =============================================
      */
 
@@ -54,9 +75,13 @@ public enum Instrument {
         this.name = name;
     }
 
+
+
+
+
     /*
      * =============================================
-     * ...
+     * Getter for the ID of the instrument:
      * =============================================
      */
 
@@ -65,22 +90,18 @@ public enum Instrument {
         return ID;
     }
 
-    public String getName()
-    {
-        return name;
-    }
+
+
+
 
     /*
      * =============================================
-     * ...
+     * Getter for the name of the instrument:
      * =============================================
      */
 
-    public static Set<String> getInstrumentNames()
+    public String getName()
     {
-        Set<String> names = new HashSet<>();
-        for (Instrument instrument : Instrument.values())
-            names.add(instrument.getName());
-        return names;
+        return name;
     }
 }

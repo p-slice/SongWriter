@@ -1,125 +1,143 @@
 package net.pslice.musicwriter.client.panels;
 
 import net.pslice.musicwriter.client.Client;
-import net.pslice.musicwriter.program.Instrument;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Content extends JPanel implements ActionListener {
 
     /*
      * =============================================
-     * ...
+     * Variables, Objects, Sets, Lists and Maps:
      * =============================================
      */
 
-    private final JLabel trackName = new JLabel(" Current Tracks: 0");
+    // The client the panel is assigned to
+    private final Client client;
 
+    // Label of all current tracks
+    private final JLabel currentTracks = new JLabel(" Current Tracks: 0");
+    // Tab pane containing track setup
     private final JTabbedPane trackTabs = new JTabbedPane();
+    // Button to add a new track
     private final JButton addButton = new JButton("Add Track");
 
-    private final Set<Integer> tracks = new HashSet<>();
+    // Map of all track items:
+    private final Map<Integer, TrackItem> trackItems = new HashMap<>();
+
+
+
+
 
     /*
      * =============================================
-     * ...
+     * Initializer:
+     * Parameters:
+     *      [Client] client: The client the panel is assigned to
      * =============================================
      */
 
-    public Content()
+    public Content(Client client)
     {
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.blue));
-        setBackground(Color.white);
+        this.client = client;
 
-        JPanel upperPanel = new JPanel(new BorderLayout());
-        upperPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+        // Main panel setup:
+        this.setLayout(new BorderLayout());
+        this.setBorder(BorderFactory.createLineBorder(Client.border));
+        this.setBackground(Client.background5);
 
-        upperPanel.add(trackName, BorderLayout.WEST);
-
+        // Settings for external components:
         addButton.addActionListener(this);
         addButton.setActionCommand("Add");
 
+        trackTabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        trackTabs.setBackground(Client.tab);
+
+        // Initializers for local panels:
+        JPanel upperPanel = new JPanel(new BorderLayout());
+
+        // Settings for local panels:
+        upperPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        upperPanel.setBackground(Client.background3);
+
+        // Add external components to local panels:
+        upperPanel.add(currentTracks, BorderLayout.WEST);
         upperPanel.add(addButton, BorderLayout.EAST);
 
-        add(upperPanel, BorderLayout.NORTH);
-
-        trackTabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        add(trackTabs, BorderLayout.CENTER);
+        // Add local panels and external panels to main panel:
+        this.add(upperPanel, BorderLayout.NORTH);
+        this.add(trackTabs, BorderLayout.CENTER);
     }
+
+
+
+
 
     /*
      * =============================================
-     * ...
+     * Implemented action performed listener:
+     * Parameters:
+     *      [ActionEvent] event: The event that occurred
+     * Returns:
+     *      [None]
      * =============================================
      */
 
     public void actionPerformed(ActionEvent event)
     {
         if (event.getActionCommand().equals("Add"))
-        {
-            if (tracks.size() < 16)
-            {
-                JPanel trackPanel = new JPanel(new BorderLayout());
-
-                int i;
-                for (i = 1; i < 17; i++)
-                    if (!tracks.contains(i))
+            if (trackItems.size() < 16)
+                for (int ID = 1; ID < 17; ID++)
+                    if (!trackItems.containsKey(ID))
                     {
-                        tracks.add(i);
+                        TrackItem item = new TrackItem(client, ID);
+                        trackItems.put(ID, item);
+
+                        currentTracks.setText(" Current Tracks: " + trackItems.size());
+                        trackTabs.addTab("Track " + ID, item);
+
+                        if (trackItems.size() == 16)
+                            addButton.setEnabled(false);
+                        client.getFooter().setRunEnabled(true);
+
                         break;
                     }
 
-                JPanel trackPanelTop = new JPanel();
-                trackPanelTop.setLayout(new BoxLayout(trackPanelTop, BoxLayout.LINE_AXIS));
-                trackPanelTop.add(new JLabel(" Track Name: "));
-                JTextField nameField = new JTextField("Track " + i);
-                nameField.setMaximumSize(new Dimension(100, nameField.getMinimumSize().height));
-
-                trackPanelTop.add(nameField);
-
-                trackPanelTop.add(new JLabel(" Instrument: "));
-                JComboBox<Instrument> instrumentOptions = new JComboBox<>(Instrument.values());
-                instrumentOptions.setMaximumSize(new Dimension(150, instrumentOptions.getMinimumSize().height));
-
-                trackPanelTop.add(instrumentOptions);
-
-                trackPanel.add(trackPanelTop, BorderLayout.NORTH);
-                trackPanel.add(new JTextArea(), BorderLayout.CENTER);
-
-
-
-                JPanel trackPanelBottom = new JPanel(new BorderLayout());
-                JButton remove = new JButton("Delete Track");
-                remove.addActionListener(this);
-                remove.setActionCommand("Remove " + i);
-
-                trackPanelBottom.add(remove, BorderLayout.EAST);
-                trackPanel.add(trackPanelBottom, BorderLayout.SOUTH);
-
-                trackName.setText(" Current Tracks: " + tracks.size());
-                trackTabs.addTab("Track " + i, trackPanel);
-
-                if (tracks.size() == 16)
-                    addButton.setEnabled(false);
-                Client.getClient().getFooter().setRunEnabled(true);
-            }
-        }
         if (event.getActionCommand().startsWith("Remove"))
         {
-            int i = Integer.parseInt(event.getActionCommand().split(" ")[1]);
+            int ID = Integer.parseInt(event.getActionCommand().split(" ")[1]);
 
-            trackTabs.remove(trackTabs.indexOfTab("Track " + i));
-            tracks.remove(i);
-            trackName.setText(" Current Tracks: " + tracks.size());
+            trackTabs.remove(trackTabs.indexOfTab("Track " + ID));
+
+            if (trackItems.containsKey(ID))
+                trackItems.remove(ID);
+
+            currentTracks.setText(" Current Tracks: " + trackItems.size());
             addButton.setEnabled(true);
-            if (tracks.size() == 0)
-                Client.getClient().getFooter().setRunEnabled(false);
+            if (trackItems.size() == 0)
+               client.getFooter().setRunEnabled(false);
         }
+    }
+
+
+
+
+
+    /*
+     * ================================================
+     * Getter for the set of all track items:
+     * ================================================
+     */
+
+    public Set<TrackItem> getTrackItems()
+    {
+        Set<TrackItem> items = new LinkedHashSet<>();
+        for (int i : trackItems.keySet())
+            items.add(trackItems.get(i));
+        return items;
     }
 }
