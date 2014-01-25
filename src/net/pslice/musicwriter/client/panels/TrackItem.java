@@ -40,9 +40,16 @@ public class TrackItem extends JPanel implements ChangeListener {
     // Button group of all possible track types:
     private final ButtonGroup trackTypes = new ButtonGroup();
 
+
+
+
+
     /*
      * ================================================
-     * ...
+     * Initializer:
+     * Parameters:
+     *      [Client] client: The client the panel is assigned to
+     *      [Integer] ID: The ID to be used by the track
      * ================================================
      */
 
